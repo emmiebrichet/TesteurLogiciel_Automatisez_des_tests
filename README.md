@@ -42,6 +42,11 @@ Une fois l’application lancée, ouvrez votre navigateur et accédez à l’adr
 
 *http://localhost:8080*
 
+#### 2.3 API Documentation
+Vous pouvez accéder à la documentation de l'API à l'adresse suivante :
+
+*http://localhost:8081/api/doc*
+
 ## 3. Lancer les tests
 ### 3.1 Installer les dépendances
 Avant de pouvoir exécuter les tests, vous devez installer les dépendances du projet. Dans le répertoire du projet, exécutez la commande suivante :
