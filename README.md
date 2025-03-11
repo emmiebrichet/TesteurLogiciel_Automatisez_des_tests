@@ -20,7 +20,7 @@ Une fois l'application lancée, ouvrez votre navigateur et accédez à l'adresse
 
 http://localhost:8080
 
-### Exécution du projet
+#### Exécution du projet
 Prérequis
 Assurez-vous que Docker et Docker Compose sont installés sur votre machine.
 
@@ -53,7 +53,7 @@ Si vous préférez exécuter les tests en mode automatisé (en ligne de commande
 npx cypress run
 Cela exécutera tous les tests et affichera les résultats directement dans le terminal.
 
-### Générer un rapport
+#### Générer un rapport
 1. Rapport après l'exécution des tests
 Après avoir exécuté les tests avec npx cypress run, Cypress générera un rapport détaillant tous les tests réussis, échoués ou ignorés.
 
