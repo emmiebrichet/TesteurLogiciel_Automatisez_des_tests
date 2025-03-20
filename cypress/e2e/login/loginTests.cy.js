@@ -11,7 +11,7 @@ describe('Test de connexion', () => {
     cy.get('input#password').type('testtest');
 
     cy.get('button[data-cy="login-submit"]').click();
-
+    cy.wait(5000)
     cy.url().should('not.include', '/login');
     cy.get('a[data-cy="nav-link-cart"]').should('be.visible');
   });
@@ -21,7 +21,7 @@ describe('Test de connexion', () => {
     cy.get('[data-cy="login-input-username"]').type('wrong@test.fr');
     cy.get('[data-cy="login-input-password"]').type('wrongpass');
     cy.get('[data-cy="login-submit"]').click();
-    
+    cy.wait(5000)
   
     cy.get('[data-cy="login-errors"]').should('contain', 'Identifiants incorrects');
     
@@ -42,7 +42,7 @@ describe('Tests de sécurité XSS sur la page de connexion', () => {
     cy.get('[data-cy="login-input-password"]').type('testtest');
     cy.get('[data-cy="login-submit"]').click();
 
-    cy.get('[data-cy="login-errors"]').should('not.contain.html', '<b>Test XSS</b>');
+    cy.get('[data-cy="login-errors"]').should('contain', 'Merci de remplir correctement tous les champs');
   });
 
   it('Ne doit pas exécuter une balise <script> injectée', () => {

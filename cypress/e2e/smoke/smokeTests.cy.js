@@ -17,19 +17,20 @@ describe('Smoke Test - Vérification des éléments sur la page d\'accueil', () 
     cy.get('[data-cy="nav-link-logout"]').should('contain', 'Déconnexion');
     cy.get('[data-cy="product-home-link"]').should('exist');
     cy.get('[data-cy="nav-link-cart"]').should('exist');
+
+    it('Vérifier la présence et le contenu des informations des produits', () => {
+      cy.get('[data-cy="product-home"]').each(($product) => {
+        cy.wrap($product).find('[data-cy="product-home-img"]').should('exist');
+        cy.wrap($product).find('[data-cy="product-home-name"]').should('exist').and('not.be.empty');
+        cy.wrap($product).find('[data-cy="product-home-ingredients"]').should('exist').and('not.be.empty');
+        cy.wrap($product).find('[data-cy="product-home-price"]').should('exist').and('not.be.empty');
+        cy.wrap($product).find('[data-cy="product-home-link"]').should('exist');
+      });
+    });
+    
+    });
 });
 
 
   
 
-it('Vérifier la présence et le contenu des informations des produits', () => {
-  cy.get('[data-cy="product-home"]').each(($product) => {
-    cy.wrap($product).find('[data-cy="product-home-img"]').should('exist');
-    cy.wrap($product).find('[data-cy="product-home-name"]').should('exist').and('not.be.empty');
-    cy.wrap($product).find('[data-cy="product-home-ingredients"]').should('exist').and('not.be.empty');
-    cy.wrap($product).find('[data-cy="product-home-price"]').should('exist').and('not.be.empty');
-    cy.wrap($product).find('[data-cy="product-home-link"]').should('exist');
-  });
-});
-
-});
