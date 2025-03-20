@@ -11,7 +11,6 @@ describe('Test de connexion', () => {
     cy.get('input#password').type('testtest');
 
     cy.get('button[data-cy="login-submit"]').click();
-    cy.wait(5000)
     cy.url().should('not.include', '/login');
     cy.get('a[data-cy="nav-link-cart"]').should('be.visible');
   });
@@ -21,7 +20,7 @@ describe('Test de connexion', () => {
     cy.get('[data-cy="login-input-username"]').type('wrong@test.fr');
     cy.get('[data-cy="login-input-password"]').type('wrongpass');
     cy.get('[data-cy="login-submit"]').click();
-    cy.wait(5000)
+    
   
     cy.get('[data-cy="login-errors"]').should('contain', 'Identifiants incorrects');
     
@@ -55,6 +54,7 @@ describe('Tests de sécurité XSS sur la page de connexion', () => {
     });
 
     cy.get('[data-cy="login-errors"]').should('not.contain', '<script>');
+    cy.get('[data-cy="login-errors"]').should('contain', 'Merci de remplir correctement tous les champs');
   });
 
   it('Ne doit pas exécuter un script XSS via une balise img', () => {
@@ -67,6 +67,7 @@ describe('Tests de sécurité XSS sur la page de connexion', () => {
     });
 
     cy.get('[data-cy="login-errors"]').should('not.contain', '<img');
+    cy.get('[data-cy="login-errors"]').should('contain', 'Merci de remplir correctement tous les champs');
   });
 
   it('Ne doit pas exécuter du code via un attribut onfocus', () => {
@@ -79,6 +80,7 @@ describe('Tests de sécurité XSS sur la page de connexion', () => {
     });
 
     cy.get('[data-cy="login-errors"]').should('not.contain', '<input onfocus');
+    cy.get('[data-cy="login-errors"]').should('contain', 'Merci de remplir correctement tous les champs');
   });
 
   it('Ne doit pas exécuter du JavaScript inline via un href', () => {
@@ -91,6 +93,25 @@ describe('Tests de sécurité XSS sur la page de connexion', () => {
     });
 
     cy.get('[data-cy="login-errors"]').should('not.contain', '<a href="javascript');
+    cy.get('[data-cy="login-errors"]').should('contain', 'Merci de remplir correctement tous les champs');
   });
+
+  it('Ne doit pas exécuter du JavaScript lors de la connexion', () => {
+    const xssPayload = '<script>alert("XSS")</script>';
+  
+    cy.get('[data-cy="login-input-username"]').type(xssPayload);
+    cy.get('[data-cy="login-input-password"]').type(xssPayload);
+  
+    cy.get('[data-cy="login-submit"]').click();
+  
+    cy.on('window:alert', (str) => {
+      throw new Error(`XSS détecté lors de la connexion : ${str}`);
+    });
+  
+    
+
+    cy.get('[data-cy="login-errors"]').should('contain', 'Merci de remplir correctement tous les champs');
+  });
+  
 
 });
