@@ -68,6 +68,52 @@ describe("Test de connexion et de navigation vers les produits", () => {
 
 });
 
+describe("Test de finalisation de commande", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:8080/#/login");
+
+    // Connexion à l'application
+    cy.get('input#username').type('test2@test.fr');
+    cy.get('input#password').type('testtest');
+    cy.get('button[data-cy="login-submit"]').click();
+    cy.get('[data-cy="nav-link-logout"]').should('contain', 'Déconnexion');
+
+    // Navigation vers les produits
+    cy.get('[data-cy="nav-link-products"]').click();
+    cy.url().should('include', '/products');
+
+    // Ajout d'un produit au panier
+    cy.get('[data-cy="product-link"]').first().click();
+    cy.get('[data-cy="detail-product-quantity"]').clear().type('1');
+    cy.get('[data-cy="detail-product-add"]').click();
+
+    // Aller au panier
+    cy.wait(1000);
+    cy.get('[data-cy="nav-link-cart"]').click();
+    cy.url().should('include', '/cart');
+  });
+
+  it("Remplit le formulaire et valide la commande", () => {
+    // Vérifier que le panier n'est pas vide
+    cy.get('[data-cy="cart-line"]').should('exist');
+
+    // Remplissage du formulaire
+    cy.get('[data-cy="cart-input-lastname"]').type('Dupont');
+    cy.get('[data-cy="cart-input-firstname"]').type('Jean');
+    cy.get('[data-cy="cart-input-address"]').type('10 rue des Lilas');
+    cy.get('[data-cy="cart-input-zipcode"]').type('75000');
+    cy.get('[data-cy="cart-input-city"]').type('Paris');
+
+    // Valider la commande
+    cy.get('[data-cy="cart-submit"]').click();
+
+    // Vérification de la redirection ou d'un message de confirmation
+    cy.url().should('include', '/confirmation');
+    
+    cy.contains("Votre commande est bien validée").should("be.visible");
+  });
+});
+
 
 describe("Test des limites de quantité de produit", () => {
 
@@ -111,7 +157,6 @@ describe("Test des limites de quantité de produit", () => {
   }); 
   
 });
-
 
 describe('Tests XSS sur le formulaire de commande', () => {
     
@@ -280,6 +325,7 @@ it('Ne doit pas exécuter du JavaScript dans un champ numérique', () => {
     cy.get('[data-cy="cart-input-address"]').invoke('html').should('not.contain', '<script>');
     cy.get('[data-cy="cart-input-zipcode"]').invoke('html').should('not.contain', '<script>');
     cy.get('[data-cy="cart-input-city"]').invoke('html').should('not.contain', '<script>');
+
 });
 
 
