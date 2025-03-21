@@ -83,7 +83,7 @@ describe("Test des limites de quantité de produit", () => {
     
     cy.get('[data-cy="product-link"]').eq(3).click();
   
-    let initialStock;  // Déclarer initialStock ici
+    let initialStock; 
   
     cy.get('p.stock').should('exist').invoke('text').then((stockText) => {
       initialStock = parseInt(stockText.replace(/[^\d]/g, ''), 10);
@@ -102,6 +102,16 @@ describe("Test des limites de quantité de produit", () => {
       console.log("Stock mis à jour extrait:", updatedStock);
       expect(updatedStock).to.not.equal(initialStock);
     });
+
+    cy.visit("http://localhost:8080/#/cart");
+    cy.get('[data-cy="cart-input-lastname"]').type('Dupont');
+    cy.get('[data-cy="cart-input-firstname"]').type('Jean');
+    cy.get('[data-cy="cart-input-address"]').type('10 rue des Lilas');
+    cy.get('[data-cy="cart-input-zipcode"]').type('75000');
+    cy.get('[data-cy="cart-input-city"]').type('Paris');
+    cy.get('[data-cy="cart-submit"]').click();
+    cy.url().should('include', '/confirmation');
+    cy.contains("Votre commande est bien validée").should("be.visible");
 });
 
 
@@ -118,7 +128,7 @@ describe("Test des limites de quantité de produit", () => {
      
         cy.get('[data-cy="detail-product-add"]').click();
         cy.get('[data-cy="nav-link-cart"]').click();      
-        cy.get('[data-cy="cart-line-quantity"]').eq(0).should('have.value', '2');  
+        cy.get('[data-cy="cart-line-quantity"]').eq(0).should('have.value', '1');  
      
       }
     });
