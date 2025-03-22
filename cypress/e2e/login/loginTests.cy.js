@@ -102,14 +102,16 @@ describe('Tests de sécurité XSS sur la page de connexion', () => {
     cy.get('[data-cy="login-input-username"]').type(xssPayload);
     cy.get('[data-cy="login-input-password"]').type(xssPayload);
   
+    
     cy.get('[data-cy="login-submit"]').click();
   
+    
     cy.on('window:alert', (str) => {
       throw new Error(`XSS détecté lors de la connexion : ${str}`);
     });
   
     
-
+    
     cy.get('[data-cy="login-errors"]').should('contain', 'Merci de remplir correctement tous les champs');
   });
   
