@@ -14,8 +14,8 @@ describe('Smoke Test - Vérification des éléments sur la page d\'accueil', () 
     cy.get('input#password').type('testtest');
     cy.get('button[data-cy="login-submit"]').click();
 
-    cy.get('[data-cy="nav-link-logout"]').should('contain', 'Déconnexion'); // Vérification de la déconnexion
-    cy.get('[data-cy="nav-link-cart"]').should('exist'); // Vérification du lien vers le panier
+    cy.get('[data-cy="nav-link-logout"]').should('contain', 'Déconnexion'); 
+    cy.get('[data-cy="nav-link-cart"]').should('exist'); 
   });
 
   it('Vérifier la présence et le contenu des informations des produits', () => {
