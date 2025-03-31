@@ -1,5 +1,5 @@
 # **Automatisation des tests - Eco Bliss Bath**
-Ce projet contient des tests automatisés pour la boutique en ligne Eco Bliss Bath. Il inclut des tests API, des tests de type smoke tests, ainsi que des tests fonctionnels pour l’affichage des produits et la fonctionnalité de login.
+Ce projet contient des tests automatisés pour la boutique en ligne Eco Bliss Bath. Il inclut des tests API, des tests de type smoke tests, ainsi que des tests fonctionnels pour l'ajout des produits et la fonctionnalité de login.
 
 ## Prérequis
 Avant de commencer, assurez-vous que vous avez les outils suivants installés sur votre machine :

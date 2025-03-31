@@ -70,10 +70,6 @@ describe("Tests d'ajout d'avis", () => {
 
 
 describe("Tests d'ajout d'avis (échec)", () => {
-
-  
-  
-
   it("Ne devrait pas ajouter un avis avec des données invalides", () => {
     cy.request({
       method: "POST",
