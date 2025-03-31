@@ -1,11 +1,11 @@
 describe('Smoke Test - Vérification des éléments sur la page d\'accueil', () => {
 
   beforeEach(() => {
-    cy.visit('http://localhost:8080#/'); // Accès à la page d'accueil
+    cy.visit('http://localhost:8080#/'); 
   });
 
   it('Vérifier la présence des champs et boutons de connexion', () => {
-    cy.get('[data-cy="nav-link-login"]').should('exist'); // Vérification du bouton de connexion
+    cy.get('[data-cy="nav-link-login"]').should('exist');
   });
 
   it('Vérifier la présence des boutons d\'ajout au panier quand l\'utilisateur est connecté', () => {
@@ -35,6 +35,3 @@ describe('Smoke Test - Vérification des éléments sur la page d\'accueil', () 
   });
 
 });
-
-  
-

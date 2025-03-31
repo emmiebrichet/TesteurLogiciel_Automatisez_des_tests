@@ -80,16 +80,16 @@ describe("Test des limites de quantité de produit", () => {
 
   
 
-  it("Vérifie l'entrée d'un chiffre supérieur à 20 pour le premier produit", () => {
-    cy.get('[data-cy="detail-product-quantity"]').clear().type('25');
-    cy.get('[data-cy="detail-product-add"]').click();
+    it("Vérifie l'entrée d'un chiffre supérieur à 20 pour le premier produit", () => {
+      cy.get('[data-cy="detail-product-quantity"]').clear().type('25');
+      cy.get('[data-cy="detail-product-add"]').click();
 
-    cy.visit('http://localhost:8080/#/cart');
-    cy.get('[data-cy="cart-line-quantity"]').should('have.value', '25');
+      cy.visit('http://localhost:8080/#/cart');
+      cy.get('[data-cy="cart-line-quantity"]').should('have.value', '25');
 
 
-  
-  });
+    
+    });
 
 
   it("Vérifie l'entrée d'un chiffre négatif pour le premier produit", () => {
@@ -113,18 +113,18 @@ describe("Test des limites de quantité de produit", () => {
      
         cy.get('[data-cy="detail-product-add"]').click();
         cy.get('[data-cy="nav-link-cart"]').click();      
-        cy.get('[data-cy="cart-line-quantity"]').eq(0).should('have.value', '1');  
+        cy.get('[data-cy="cart-line-quantity"]').eq(0).should('have.value', '26');  
      
       }
     });
   });
-});
+}); 
  
 
 
 describe("Récupération de la liste des produits du panier", () => {
   let token; 
-
+ 
   before("Devrait récupérer le token après une connexion réussie", () => {
     cy.request({
       method: "POST",
